@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:placement_records/screens/admin/add_company.dart';
 import 'package:placement_records/screens/admin/company_details.dart';
 
 class CompanyPage extends StatefulWidget {
@@ -28,8 +31,8 @@ class _CompanyPageState extends State<CompanyPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CompanyDetails(companyid: '1')
-                            ),
+                                builder: (context) =>
+                                    CompanyDetails(companyid: '1')),
                           );
                         });
                       },
@@ -59,6 +62,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  // ignore: prefer_const_literals_to_create_immutables
                                   children: [
                                     Text(
                                       'Company Name ',
@@ -68,6 +72,23 @@ class _CompanyPageState extends State<CompanyPage> {
                                     ),
                                     Text(
                                       'XYZ',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    Text(
+                                      'Company Id ',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                    Text(
+                                      '1',
                                       style: TextStyle(fontSize: 18),
                                     )
                                   ],
@@ -85,7 +106,10 @@ class _CompanyPageState extends State<CompanyPage> {
               child: FloatingActionButton(
                 child: Icon(Icons.add),
                 backgroundColor: Colors.blue,
-                onPressed: () {},
+                onPressed: () {Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => AddCompany()),
+  );},
               ),
             ),
             Row(
