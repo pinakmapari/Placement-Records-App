@@ -11,7 +11,9 @@ class CompanyDetails extends StatelessWidget {
     //print all details of a particular company
 
     return Scaffold(
-      appBar: AppBar(title: Text('Company Details'),),
+      appBar: AppBar(
+        title: Text('Company Details'),
+      ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
@@ -50,6 +52,11 @@ class CompanyDetails extends StatelessWidget {
               SizedBox(height: 20),
               Text(
                 'Package : ' + '15 LPA',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'HR Mail Id : ' + 'hr@xyz.com',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
