@@ -44,7 +44,7 @@ class _BackState extends State<Back> {
       "location": "Pune"
     });
     // Starting Web Call with data.
-    var response = await http.post(url, body: json.encode(data));
+    var response = await http.post(Uri.parse(url), body: json.encode(data));
 
     // Getting Server response into variable.
     var message = jsonDecode(response.body);
