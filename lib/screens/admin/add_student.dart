@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AddStudent extends StatefulWidget {
   const AddStudent({Key? key}) : super(key: key);
@@ -22,6 +24,33 @@ class _AddStudentState extends State<AddStudent> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+  }
+
+  loadData(String studentName, String skill_set, String mail_id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var url = 'http://localhost:5001/api/student/student';
+    // var request = http.Request(
+    //     'POST', Uri.parse('http://localhost:5001/api/company/company'));
+    Map data = {
+      "student_name": studentName,
+      "department": "CS dept (hardcoded)",
+      "skillset": skill_set,
+      "student_mail": mail_id
+    };
+    //request.headers.addAll(headers);
+
+    //http.StreamedResponse streamedResponse = await request.send();
+
+    //var response = await http.Response.fromStream(streamedResponse);
+    //var jsonBody = json.encode(response.body);
+
+    var body = json.encode(data);
+
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}, body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
   }
 
   showToast(String message, Color? c, IconData? i) {
@@ -189,6 +218,7 @@ class _AddStudentState extends State<AddStudent> {
 
       if (isValid) {
         _formKey.currentState!.save();
+        loadData(studentName, skill_set, mail_id);
       }
       await showToast('Student Added Successfully!', Colors.green, Icons.check);
       _formKey.currentState!.reset();

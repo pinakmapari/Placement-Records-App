@@ -93,15 +93,15 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2",
+      "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
       "packageUri": "lib/",
-      "languageVersion": "2.4"
+      "languageVersion": "2.14"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4",
+      "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.3"
+      "languageVersion": "2.12"
     },
     {
       "name": "js",
@@ -142,12 +142,6 @@
     {
       "name": "path",
       "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "pedantic",
-      "rootUri": "file:///Users/kirtipalve/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -272,7 +266,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-08T05:48:57.211033Z",
+  "generated": "2021-12-19T10:14:47.748925Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

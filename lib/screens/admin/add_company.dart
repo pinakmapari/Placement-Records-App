@@ -18,23 +18,16 @@ class _AddCompanyState extends State<AddCompany> {
   late String companyName;
 
   late FToast fToast;
-  late String cutoff;
+  late double cutoff;
   late String location;
   late String role;
   late String domain;
-  late String package;
+  late double package;
   late String hr_mail;
-  late String year;
-
-  var db = new mySql();
+  late int year;
 
   void _addCompany(double CGPA_cutoff, String Location, String role,
-      String HR_Mail_id, double ctc_offered, String year, String companyName) {
-    // db.getConnection().then((conn){
-    //   String sql='insert into companies(company_name,cgpa_cutoff,location,hr_mail,ctc_offered,role,domain,year)
-    //   values () '
-    // })
-  }
+      String HR_Mail_id, double ctc_offered, String year, String companyName) {}
   void initState() {
     //loadData();
     super.initState();
@@ -43,29 +36,47 @@ class _AddCompanyState extends State<AddCompany> {
   }
 
   // List CompanyData = [];
-  // loadData() async {
-  //   var headers = {'Content-Type': 'application/json'};
-  //   var request = http.Request('GET',
-  //       Uri.parse('http://localhost:5001/api/company/company'));
-  //   request.body = json
-  //       .encode({"source_pin": sender_pin_code, "dest_pin": receiver_pin_code});
-  //   request.headers.addAll(headers);
+  loadData(double CGPA_cutoff, String Location, String role, String HR_Mail_id,
+      double ctc_offered, int year, String companyName, String domain) async {
+    var headers = {'Content-Type': 'application/json'};
+    var url = 'http://localhost:5001/api/company/company';
+    // var request = http.Request(
+    //     'POST', Uri.parse('http://localhost:5001/api/company/company'));
+    Map data = {
+      "company_name": companyName,
+      "cgpa_cutoff": CGPA_cutoff,
+      "location": Location,
+      "hr_mail": HR_Mail_id,
+      "ctc_offered": ctc_offered,
+      "role": role,
+      "domain": domain,
+      "year": year
+    };
+    //request.headers.addAll(headers);
 
-  //   http.StreamedResponse streamedResponse = await request.send();
+    //http.StreamedResponse streamedResponse = await request.send();
 
-  //   var response = await http.Response.fromStream(streamedResponse);
-  //   var jsonBody = json.decode(response.body);
+    //var response = await http.Response.fromStream(streamedResponse);
+    //var jsonBody = json.encode(response.body);
 
-    setState(() {
-      courierCompanyList = jsonBody["courier_list"];
+    var body = json.encode(data);
 
-      if (courierCompanyList == null) {
-        courierIsEmpty = true;
-      } else {
-        courierIsEmpty = false;
-        print(courierCompanyList);
-      }
-    });
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}, body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
+
+    // setState(() {
+    //   courierCompanyList = jsonBody["courier_list"];
+
+    //   if (courierCompanyList == null) {
+    //     courierIsEmpty = true;
+    //   } else {
+    //     courierIsEmpty = false;
+    //     print(courierCompanyList);
+    //   }
+    // });
   }
 
   showToast(String message, Color? c, IconData? i) {
@@ -96,7 +107,6 @@ class _AddCompanyState extends State<AddCompany> {
 
   @override
   Widget build(BuildContext context) {
-    String hr_mail;
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Company Details'),
@@ -168,7 +178,8 @@ class _AddCompanyState extends State<AddCompany> {
                         return null;
                       }
                     },
-                    onSaved: (value) => setState(() => cutoff = value!),
+                    onSaved: (value) =>
+                        setState(() => cutoff = double.parse(value!)),
                   ),
                   SizedBox(
                     height: 15.0,
@@ -249,7 +260,8 @@ class _AddCompanyState extends State<AddCompany> {
                         return null;
                       }
                     },
-                    onSaved: (value) => setState(() => package = value!),
+                    onSaved: (value) =>
+                        setState(() => package = double.parse(value!)),
                   ),
                   SizedBox(
                     height: 15.0,
@@ -291,7 +303,8 @@ class _AddCompanyState extends State<AddCompany> {
                         return null;
                       }
                     },
-                    onSaved: (value) => setState(() => year = value!),
+                    onSaved: (value) =>
+                        setState(() => year = int.parse(value!)),
                   ),
                   SizedBox(
                     height: 30.0,
@@ -335,6 +348,8 @@ class _AddCompanyState extends State<AddCompany> {
 
       if (isValid) {
         _formKey.currentState!.save();
+        loadData(cutoff, location, role, hr_mail, package, year, companyName,
+            domain);
       }
       await showToast('Company Added Successfully!', Colors.green, Icons.check);
       _formKey.currentState!.reset();
