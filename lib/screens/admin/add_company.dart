@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:placement_records/mysql.dart';
 import 'package:placement_records/screens/admin/company.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AddCompany extends StatefulWidget {
   const AddCompany({Key? key}) : super(key: key);
@@ -23,11 +26,46 @@ class _AddCompanyState extends State<AddCompany> {
   late String hr_mail;
   late String year;
 
-  @override
+  var db = new mySql();
+
+  void _addCompany(double CGPA_cutoff, String Location, String role,
+      String HR_Mail_id, double ctc_offered, String year, String companyName) {
+    // db.getConnection().then((conn){
+    //   String sql='insert into companies(company_name,cgpa_cutoff,location,hr_mail,ctc_offered,role,domain,year)
+    //   values () '
+    // })
+  }
   void initState() {
+    //loadData();
     super.initState();
     fToast = FToast();
     fToast.init(context);
+  }
+
+  // List CompanyData = [];
+  // loadData() async {
+  //   var headers = {'Content-Type': 'application/json'};
+  //   var request = http.Request('GET',
+  //       Uri.parse('http://localhost:5001/api/company/company'));
+  //   request.body = json
+  //       .encode({"source_pin": sender_pin_code, "dest_pin": receiver_pin_code});
+  //   request.headers.addAll(headers);
+
+  //   http.StreamedResponse streamedResponse = await request.send();
+
+  //   var response = await http.Response.fromStream(streamedResponse);
+  //   var jsonBody = json.decode(response.body);
+
+    setState(() {
+      courierCompanyList = jsonBody["courier_list"];
+
+      if (courierCompanyList == null) {
+        courierIsEmpty = true;
+      } else {
+        courierIsEmpty = false;
+        print(courierCompanyList);
+      }
+    });
   }
 
   showToast(String message, Color? c, IconData? i) {
