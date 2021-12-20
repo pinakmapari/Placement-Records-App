@@ -27,14 +27,14 @@ class _CompanyPageState extends State<CompanyPage> {
                   itemBuilder: (_, index) {
                     return InkWell(
                       onTap: () {
-                        setState(() {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CompanyDetails(companyid: '1')),
-                          );
-                        });
+                        // setState(() {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             //CompanyDetails(companyid: '1')),
+                        //   );
+                        // });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),

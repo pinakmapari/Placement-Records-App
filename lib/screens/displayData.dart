@@ -40,7 +40,7 @@ class _DisplayDataState extends State<DisplayData> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CompanyDetails(companyid: '1')),
+                                      CompanyDetails(details: widget.data[index],)),
                             );
                           });
                         },
@@ -96,7 +96,7 @@ class _DisplayDataState extends State<DisplayData> {
                                             fontWeight: FontWeight.w800),
                                       ),
                                       Text(
-                                        '1',
+                                        '${widget.data[index]['company_id']}',
                                         style: TextStyle(fontSize: 18),
                                       )
                                     ],

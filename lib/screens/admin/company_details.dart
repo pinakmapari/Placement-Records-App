@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 
 class CompanyDetails extends StatelessWidget {
-  final String companyid;
-  const CompanyDetails({Key? key, required this.companyid}) : super(key: key);
+  //final String companyid;
+  final details;
+  const CompanyDetails({Key? key, required this.details}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,48 +21,48 @@ class CompanyDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Company Id : ' + '1',
+              Text(
+                'Company Id : ' + '${details['company_id']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Company Name: ' + 'XYZ',
+                'Company Name: ' + '${details['company_name']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'CGPA Cutoff : ' + '8.5',
+                'CGPA Cutoff : ' + '${details['cgpa_cutoff']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Location : ' + 'Hyderabad',
+                'Location : ' + '${details['location']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Role : ' + 'SDE',
+                'Role : ' + '${details['role']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Domain : ' + 'Web',
+                'Domain : ' + '${details['domain']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Package : ' + '15 LPA',
+                'Package : ' + '${details['ctc_offered']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'HR Mail Id : ' + 'hr@xyz.com',
+                'HR Mail Id : ' + '${details['hr_mail']}',
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               Text(
-                'Year : ' + '2019',
+                'Year : ' + '${details['year']}',
                 style: TextStyle(fontSize: 16),
               ),
             ],
