@@ -106,10 +106,12 @@ class _CompanyPageState extends State<CompanyPage> {
               child: FloatingActionButton(
                 child: Icon(Icons.add),
                 backgroundColor: Colors.blue,
-                onPressed: () {Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => AddCompany()),
-  );},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddCompany()),
+                  );
+                },
               ),
             ),
             Row(

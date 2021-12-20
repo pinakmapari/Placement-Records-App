@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:placement_records/components/cityfilter.dart';
 import 'package:placement_records/components/rangeslider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:placement_records/screens/displayData.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,9 +25,44 @@ class _HomePageState extends State<HomePage> {
     "Hyderabad",
     "Kolkata"
   ];
-  late String cityName;
-  late int year;
-  late double min, max;
+  String cityName = "NA";
+  int year = -1;
+  double min = -1, max = -1;
+
+  // List CompanyData = [];
+  loadData(String cityName, int year, double min, double max) async {
+    var headers = {'Content-Type': 'application/json'};
+    var url = 'http://localhost:5001/api/company/displaybyfilter';
+    // var request = http.Request(
+    //     'POST', Uri.parse('http://localhost:5001/api/company/company'));
+    // Map data = {
+    //   "location": cityName,
+    //   "year": year,
+    //   "ctcFrom": min,
+    //   "ctcTo": max
+    // };
+
+    Map data = {};
+    if (cityName != "NA") {
+      // data["location"] = cityName;
+      data.putIfAbsent("location", () => cityName);
+    }
+    if (min != -1 && max != -1) {
+      data.putIfAbsent("ctcFrom", () => min);
+      data.putIfAbsent("ctcTo", () => max);
+    }
+    if (year != -1) {
+      data.putIfAbsent("year", () => year);
+    }
+    var body = json.encode(data);
+
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}, body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
+  }
+
   String search = '';
   @override
   Widget build(BuildContext context) {
@@ -179,7 +218,14 @@ class _HomePageState extends State<HomePage> {
                           "     Submit    ",
                           style: TextStyle(fontSize: 18),
                         ),
-                        onPressed: () => print("Submit pressed"),
+                        onPressed: () {
+                          //loadData(cityName, year, min, max);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DisplayData(),
+                              ));
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.blue[400],
                           onPrimary: Colors.white,
