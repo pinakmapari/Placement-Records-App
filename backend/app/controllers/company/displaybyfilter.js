@@ -6,12 +6,13 @@ const { Op } = require("sequelize");
 
 
 const coDisplay=async(req,res)=>{
-       //let location = req.body.location;
+       //let templocation = JSON.stringify(req.body.location);
        //let year = req.body.year;
       // //let department = req.body.department;
       // let ctcFrom = req.body.ctcFrom;
       // let ctcTo=req.body.ctcTo;
       //let options = { where:  {} };
+      
       let w={};
       if (req.body.location)
           w.location = req.body.location
