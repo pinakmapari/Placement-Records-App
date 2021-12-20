@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:placement_records/screens/admin/add_company.dart';
 import 'package:placement_records/screens/admin/company_details.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class CompanyPage extends StatefulWidget {
   const CompanyPage({Key? key}) : super(key: key);
@@ -14,7 +16,23 @@ class CompanyPage extends StatefulWidget {
 class _CompanyPageState extends State<CompanyPage> {
   @override
   Widget build(BuildContext context) {
-    String company_id;
+    ;
+    late int company_id;
+
+    deleteData(int company_id) async {
+      var headers = {'Content-Type': 'application/json'};
+      var url = 'http://localhost:5001/api/company/deletecompany';
+
+      Map data = {"company_id": company_id};
+
+      var body = json.encode(data);
+
+      var response = await http.post(Uri.parse(url),
+          headers: {"Content-Type": "application/json"}, body: body);
+      print("${response.statusCode}");
+      print("${response.body}");
+      return response;
+    }
 
     return Container(
       child: Padding(
@@ -125,7 +143,8 @@ class _CompanyPageState extends State<CompanyPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                     ),
-                    onSaved: (value) => setState(() => company_id = value!),
+                    onChanged: (value) =>
+                        setState(() => company_id = int.parse(value)),
                   ),
                 ),
                 const SizedBox(
@@ -147,7 +166,9 @@ class _CompanyPageState extends State<CompanyPage> {
                     'Delete',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await deleteData(company_id);
+                  },
                 ),
               ],
             ),
