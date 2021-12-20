@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:placement_records/components/cityfilter.dart';
 import 'package:placement_records/components/rangeslider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +15,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController yearController = TextEditingController();
+
+  late double ctc_offered_from;
+  late double ctc_offered_to;
+  late String Location;
+  late int year;
+
+  // List CompanyData = [];
+  loadData(String Location, int year, double ctc_offered_from,
+      double ctc_offered_to) async {
+    var headers = {'Content-Type': 'application/json'};
+    var url = 'http://localhost:5001/api/company/displaybyfilter';
+    // var request = http.Request(
+    //     'POST', Uri.parse('http://localhost:5001/api/company/company'));
+    Map data = {
+      "location": Location,
+      "year": year,
+      "ctcFrom": ctc_offered_from,
+      "ctcTo": ctc_offered_to
+    };
+
+
+    var body = json.encode(data);
+
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}, body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
+
+  }
 
   String search = '';
   @override
@@ -110,8 +142,10 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: 60,
                     child: ElevatedButton(
-                      
-                      child: Text("     Submit    ", style: TextStyle(fontSize: 18),),
+                      child: Text(
+                        "     Submit    ",
+                        style: TextStyle(fontSize: 18),
+                      ),
                       onPressed: () => print("Submit pressed"),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue[400],
